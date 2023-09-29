@@ -1,19 +1,10 @@
 import "./TodoItem.css";
 
-function TodoItem({ text, completed, todos, setTodos }) {
+function TodoItem({ text, completed, onComplete, onDelete }) {
   return (
     <li className="TodoItem">
       <span
-        onClick={() =>
-          setTodos(
-            todos.map((todo) => {
-              if (todo.text === text) {
-                return { ...todo, completed: !todo.completed };
-              }
-              return todo;
-            })
-          )
-        }
+        onClick={() => onComplete(text)}
         className={`Icon Icon-check ${completed && "Icon Icon-check--active"}`}
       >
         V
@@ -21,10 +12,7 @@ function TodoItem({ text, completed, todos, setTodos }) {
       <p className={`TodoItem-p ${completed && "TodoItem-p--complete"}`}>
         {text}
       </p>
-      <span
-        onClick={() => setTodos(todos.filter((todo) => todo.text !== text))}
-        className="Icon Icon-delete"
-      >
+      <span onClick={() => onDelete(text)} className="Icon Icon-delete">
         X
       </span>
     </li>
